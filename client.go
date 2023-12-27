@@ -8,9 +8,9 @@ import (
 	"crypto/sha512"
 	"encoding/base64"
 	"errors"
+	"github.com/val1nna/tapngo/utils"
 	"net/http"
 	"os"
-	"tapngo/utils"
 )
 
 const (
