@@ -74,8 +74,8 @@ func WithMerchantId(merchantId string) OptionFunc {
 func WithPayment(payment *Payment) OptionFunc {
 	return func(c *Client) error {
 		var err error
-		if payment.pubKeyFile != "" {
-			payment.pubKey, err = c.LoadPublicKeyFromFile(payment.pubKeyFile)
+		if payment.PubKeyFile != "" {
+			payment.PubKey, err = c.LoadPublicKeyFromFile(payment.PubKeyFile)
 		}
 		c.payment = payment
 		return err
@@ -85,8 +85,8 @@ func WithPayment(payment *Payment) OptionFunc {
 func WithTxnHist(txnHist *TxnHist) OptionFunc {
 	return func(c *Client) error {
 		var err error
-		if txnHist.pubKeyFile != "" {
-			txnHist.pubKey, err = c.LoadPublicKeyFromFile(txnHist.pubKeyFile)
+		if txnHist.PubKeyFile != "" {
+			txnHist.PubKey, err = c.LoadPublicKeyFromFile(txnHist.PubKeyFile)
 		}
 		c.txnHist = txnHist
 		return err
@@ -96,8 +96,8 @@ func WithTxnHist(txnHist *TxnHist) OptionFunc {
 func WithRefund(refund *Refund) OptionFunc {
 	return func(c *Client) error {
 		var err error
-		if refund.pubKeyFile != "" {
-			refund.pubKey, err = c.LoadPublicKeyFromFile(refund.pubKeyFile)
+		if refund.PubKeyFile != "" {
+			refund.PubKey, err = c.LoadPublicKeyFromFile(refund.PubKeyFile)
 		}
 		c.refund = refund
 		return err

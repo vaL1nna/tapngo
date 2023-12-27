@@ -6,20 +6,20 @@ import (
 
 func TestPay(t *testing.T) {
 	payment := &Payment{
-		appId:  "4265838497",
-		apiKey: []byte("jmaKZmPsZOhkbPpJzzIT5siKhJC5EmyTbPhj5W1ZJoSeoUV6JTqFKAuAhCfWwRgamAf30M6EFbe70MFjE1RJeQ=="),
+		AppId:  "4265838497",
+		ApiKey: []byte("jmaKZmPsZOhkbPpJzzIT5siKhJC5EmyTbPhj5W1ZJoSeoUV6JTqFKAuAhCfWwRgamAf30M6EFbe70MFjE1RJeQ=="),
 		// pubKeyFile: "payment.pem",
 	}
 
 	txnHist := &TxnHist{
-		appId:  "4265838497",
-		apiKey: []byte("jmaKZmPsZOhkbPpJzzIT5siKhJC5EmyTbPhj5W1ZJoSeoUV6JTqFKAuAhCfWwRgamAf30M6EFbe70MFjE1RJeQ=="),
+		AppId:  "4265838497",
+		ApiKey: []byte("jmaKZmPsZOhkbPpJzzIT5siKhJC5EmyTbPhj5W1ZJoSeoUV6JTqFKAuAhCfWwRgamAf30M6EFbe70MFjE1RJeQ=="),
 		// pubKeyFile: "txnHist.pem",
 	}
 
 	refund := &Refund{
-		appId:  "4265838497",
-		apiKey: []byte("jmaKZmPsZOhkbPpJzzIT5siKhJC5EmyTbPhj5W1ZJoSeoUV6JTqFKAuAhCfWwRgamAf30M6EFbe70MFjE1RJeQ=="),
+		AppId:  "4265838497",
+		ApiKey: []byte("jmaKZmPsZOhkbPpJzzIT5siKhJC5EmyTbPhj5W1ZJoSeoUV6JTqFKAuAhCfWwRgamAf30M6EFbe70MFjE1RJeQ=="),
 		// pubKeyFile: "refund.pem",
 	}
 
