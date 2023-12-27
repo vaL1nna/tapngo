@@ -1,7 +1,13 @@
 package tapngo
 
 import (
+	"crypto/hmac"
+	"crypto/rand"
 	"crypto/rsa"
+	"crypto/sha1"
+	"crypto/sha512"
+	"encoding/base64"
+	"errors"
 	"net/http"
 	"os"
 	"tapngo/utils"
@@ -11,6 +17,15 @@ const (
 	UatGateWay        = "gateway.sandbox.tapngo.com.hk"
 	ProductionGateWay = "gateway2.tapngo.com.hk"
 )
+
+var (
+	ErrNoPubKeyFile = errors.New("tapngo: no public key file")
+	ErrNoApiKey     = errors.New("tapngo: no api key")
+)
+
+type Request interface {
+	Params() map[string]string
+}
 
 type OptionFunc func(c *Client) error
 
@@ -97,4 +112,34 @@ func (c *Client) LoadPublicKeyFromFile(file string) (*rsa.PublicKey, error) {
 	}
 
 	return utils.ParseRSAPublicKeyFromPEM(key)
+}
+
+func (c *Client) Payload(plainPayload []byte, pubKey *rsa.PublicKey) (string, error) {
+	var encrypted []byte
+	var err error
+
+	if pubKey == nil {
+		return "", ErrNoPubKeyFile
+	}
+
+	// Encrypt the payload
+	if encrypted, err = rsa.EncryptOAEP(sha1.New(), rand.Reader, pubKey, plainPayload, nil); err != nil {
+		return "", err
+	}
+
+	// Return the Base64-encoded encrypted data
+	return base64.StdEncoding.EncodeToString(encrypted), nil
+}
+
+func (c *Client) Sign(request Request, apiKey []byte) (string, error) {
+	if apiKey == nil {
+		return "", ErrNoApiKey
+	}
+	str := utils.BuildQueryString(request.Params())
+
+	h := hmac.New(sha512.New, apiKey)
+	h.Write([]byte(str))
+	hash := h.Sum(nil)
+
+	return base64.StdEncoding.EncodeToString(hash), nil
 }
